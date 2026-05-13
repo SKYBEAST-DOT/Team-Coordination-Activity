@@ -17,7 +17,7 @@ class TeamCoordinationActivitySystemTests(unittest.TestCase):
         completed = self.system.complete_activity(created["id"])
         self.assertEqual(completed["status"], "completed")
 
-    def test_filter_activities_by_function_status_and_owner(self) -> None:
+    def test_list_activities_filters_by_function_status_and_owner(self) -> None:
         one = self.system.create_activity("Triage queue", "support", owner="Riley")
         two = self.system.create_activity("Plan campaign", "marketing", owner="Alex")
         self.system.update_activity(two["id"], status="blocked")
@@ -31,7 +31,7 @@ class TeamCoordinationActivitySystemTests(unittest.TestCase):
         alex_only = self.system.list_activities(owner="Alex")
         self.assertEqual([a["id"] for a in alex_only], [two["id"]])
 
-    def test_summary_counts(self) -> None:
+    def test_summary_aggregates_by_status_and_function(self) -> None:
         self.system.create_activity("A", "operations")
         b = self.system.create_activity("B", "operations")
         c = self.system.create_activity("C", "design")

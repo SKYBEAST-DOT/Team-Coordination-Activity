@@ -112,7 +112,7 @@ class TeamCoordinationActivitySystem:
 
     def _validate_status(self, status: str) -> None:
         if status not in VALID_STATUSES:
-            raise ValueError(f"status must be one of: {sorted(VALID_STATUSES)}")
+            raise ValueError(f"status must be one of: {', '.join(sorted(VALID_STATUSES))}")
 
     def _require_activity(self, activity_id: int) -> Activity:
         activity = self._activities.get(activity_id)
